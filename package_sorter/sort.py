@@ -52,7 +52,7 @@ def sort(
     if is_bulky and is_heavy:
         return PackageStacks.REJECTED.value
 
-    if is_bulky and is_heavy:
+    if is_bulky or is_heavy:
         return PackageStacks.SPECIAL.value
 
     return PackageStacks.STANDARD.value
