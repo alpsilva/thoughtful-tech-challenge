@@ -1,4 +1,4 @@
-from package_sorter import sort
+from sorter import sort
 
 
 def main():
