@@ -2,6 +2,15 @@ from typing import Union
 from enum import Enum
 
 
+# Custom errors
+class PackageSorterValueError(Exception):
+    pass
+
+
+class PackageSorterWrongTypeError(Exception):
+    pass
+
+
 class PackageStacks(Enum):
     STANDARD = "STANDARD"
     SPECIAL = "SPECIAL"
@@ -45,6 +54,23 @@ def sort(
     - **REJECTED**: packages that are **both** heavy and bulky are rejected.
 
     """
+
+    for param_name, value in [
+        ("width", width),
+        ("height", height),
+        ("length", length),
+        ("mass", mass),
+    ]:
+        value_type = type(value)
+        if value_type not in [int, float]:
+            raise PackageSorterWrongTypeError(
+                f"Parameter {param_name} should be one of: int, float. Received {value_type}"
+            )
+
+        if value <= 0:
+            raise PackageSorterValueError(
+                f"Parameter {param_name} should be higher than zero. Received {value}"
+            )
 
     is_bulky = _is_bulky(width, height, length)
     is_heavy = _is_heavy(mass)
