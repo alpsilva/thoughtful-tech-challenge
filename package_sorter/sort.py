@@ -26,5 +26,24 @@ def _is_heavy(weight_in_kg: Union[int, float]) -> bool:
     """ A package is heavy when its mass is greater or equal to 20 kg """
     return weight_in_kg >= 20
 
-def sort(width, height, length, mass) -> str:
-    pass
+def sort(width: Union[int, float], height: Union[int, float], length: Union[int, float], mass: Union[int, float]) -> str:
+    """
+    Receives package data and determine which stack it should to go to:
+
+    - **STANDARD**: standard packages (those that are not bulky or heavy) can be handled normally.
+    - **SPECIAL**: packages that are either heavy or bulky can't be handled automatically.
+    - **REJECTED**: packages that are **both** heavy and bulky are rejected.
+
+    """
+
+    is_bulky = _is_bulky(width, height, length)
+    is_heavy = _is_heavy(mass)
+
+    if is_bulky and is_heavy:
+        return PackageStacks.REJECTED.value
+    
+    if is_bulky and is_heavy:
+        return PackageStacks.SPECIAL.value
+    
+    return PackageStacks.STANDARD.value
+    
