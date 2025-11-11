@@ -1,5 +1,8 @@
+from package_sorter import sort
+
 def main():
-    print("Hello from package-sorter!")
+    stack = sort(10, 20, 30, 5)
+    print(stack)
 
 
 if __name__ == "__main__":
